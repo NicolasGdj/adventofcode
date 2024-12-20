@@ -14,7 +14,7 @@ public class Day4 extends Day {
 
     @Override
     protected boolean debug() {
-        return true;
+        return false;
     }
 
 
@@ -51,7 +51,7 @@ public class Day4 extends Day {
 
 
         // Diagonal
-        int maxLength = Integer.max(lines.size(), lines.get(0).length());
+        int maxLength = Integer.max(lines.size(), lines.get(0).length()) * 2;
         for(int ij = 0; ij < lines.size() && ij < lines.get(0).length(); ++ij) {
             StringBuilder diagonal = new StringBuilder();
             for(int k = -maxLength; k < maxLength; ++k) {
@@ -64,7 +64,6 @@ public class Day4 extends Day {
             occurences += getOccurences(diagonal.toString(), pattern);
             occurences += getOccurences(diagonal.reverse().toString(), pattern);
         }
-        if(lines.size() != lines.get(0).length()) {
             for(int ij = 0; ij < lines.size() && ij < lines.get(0).length(); ++ij) {
                 StringBuilder diagonal = new StringBuilder();
                 for(int k = -maxLength; k < maxLength; ++k) {
@@ -77,7 +76,8 @@ public class Day4 extends Day {
                 occurences += getOccurences(diagonal.toString(), pattern);
                 occurences += getOccurences(diagonal.reverse().toString(), pattern);
             }
-        }
+        System.out.println(occurences);
+
         System.out.println();
                 /*
         . 0 1 2 3 4
@@ -103,20 +103,19 @@ public class Day4 extends Day {
             occurences += getOccurences(diagonal.reverse().toString(), pattern);
         }
 
-        if(lines.size() != lines.get(0).length()) {
-            for(int ij = 0; ij < lines.size() && ij < lines.get(0).length(); ++ij) {
-                StringBuilder diagonal = new StringBuilder();
-                for(int k = -maxLength; k < maxLength; ++k) {
-                    int row = lines.size() - (ij + 1 - k) - 1;
-                    int column = ij + k;
-                    if(row >= 0 && row < lines.size() && column >= 0 && column < lines.get(row).length()) {
-                        diagonal.append(lines.get(row).charAt(column));
-                    }
+        for(int ij = 0; ij < lines.size() && ij < lines.get(0).length(); ++ij) {
+            StringBuilder diagonal = new StringBuilder();
+            for(int k = -maxLength; k < maxLength; ++k) {
+                int row = lines.size() - (ij + 1 - k) - 1;
+                int column = ij + k;
+                if(row >= 0 && row < lines.size() && column >= 0 && column < lines.get(row).length()) {
+                    diagonal.append(lines.get(row).charAt(column));
                 }
-                occurences += getOccurences(diagonal.toString(), pattern);
-                occurences += getOccurences(diagonal.reverse().toString(), pattern);
             }
+            occurences += getOccurences(diagonal.toString(), pattern);
+            occurences += getOccurences(diagonal.reverse().toString(), pattern);
         }
+
 
 
         System.out.println(occurences);
