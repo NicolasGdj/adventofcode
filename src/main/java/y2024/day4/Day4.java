@@ -134,6 +134,55 @@ public class Day4 extends Day {
     @Override
     public void resolveTwo(List<String> lines) {
 
+        char[][] grid = new char[lines.size()][lines.get(0).length()];
+
+        for (String line : lines) {
+            for(int i = 0; i < line.length(); i++) {
+                grid[lines.indexOf(line)][i] = line.charAt(i);
+            }
+        }
+
+        int occurences = 0;
+        for(int x = 1; x < grid.length-1; x++) {
+            for(int y = 1; y < grid[x].length-1; y++) {
+                char c = grid[x][y];
+                if (c == 'A') {
+                    char topLeft = grid[x-1][y-1];
+                    char topRight = grid[x-1][y+1];
+                    char bottomLeft = grid[x+1][y-1];
+                    char bottomRight = grid[x+1][y+1];
+
+                    /*
+                          M . M
+                          . A .
+                          S . S
+
+                          S . S
+                          . A .
+                          M . M
+
+                          M . S
+                          . A .
+                          M . S
+
+                     */
+
+                    //Looking for "MAS"
+                    for(int i = 0; i < 4; ++i) {
+                        if (topLeft == 'M' && topRight == 'M' && bottomLeft == 'S' && bottomRight == 'S') {
+                            occurences++;
+                        }
+                        char tmp = topLeft;
+                        topLeft = topRight;
+                        topRight = bottomRight;
+                        bottomRight = bottomLeft;
+                        bottomLeft = tmp;
+                    }
+                }
+            }
+        }
+
+        System.out.println(occurences);
 
     }
 }
